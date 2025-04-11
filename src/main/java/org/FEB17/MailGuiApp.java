@@ -11,27 +11,37 @@ public class MailGuiApp {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-        JLabel label = new JLabel("Hallo Swing");
-        frame.add(label);
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         JTextField mailTo = new JTextField();
-        frame.add(mailTo);
+        JLabel labelRecipient = new JLabel("Recipient");
+        panel.add(labelRecipient);
+        panel.add(mailTo);
+
 
         JTextField subject = new JTextField();
-        frame.add(subject);
+        JLabel labelSubject = new JLabel("Subject");
+        panel.add(labelSubject);
+        panel.add(subject);
 
-        JTextArea message = new JTextArea();
-        frame.add(message);
+
+        JTextArea messageArea = new JTextArea();
+        JLabel labelMessage = new JLabel("Message");
+        JScrollPane scrollPane = new JScrollPane(messageArea);
+        panel.add(labelMessage);
+        panel.add(scrollPane);
+
 
         JButton button = new JButton("Send");
-        frame.add(button);
         button.addActionListener(e -> {
             JOptionPane.showMessageDialog(frame,"Nachricht wird gesendet");
+            MailSender.sendMail(mailTo.getText(),subject.getText(),messageArea.getText());
         });
+        panel.add(button);
 
 
-
-
+        frame.add(panel);
         frame.setVisible(true);
 
 
