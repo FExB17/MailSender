@@ -52,6 +52,12 @@ public class MailGuiApp {
 
 
         JButton button = new JButton("Send");
+
+
+
+
+
+
         button.addActionListener(e -> {
             String to = mailTo.getText();
             String subj = subject.getText();
@@ -65,7 +71,7 @@ public class MailGuiApp {
                 return;
             }
 
-            JOptionPane.showMessageDialog(frame, "Message has been send");
+            JOptionPane.showMessageDialog(frame, "Message has been sent");
             MailSender.sendMail(to, subj, message);
         });
 
