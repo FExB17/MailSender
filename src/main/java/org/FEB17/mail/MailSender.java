@@ -1,11 +1,10 @@
-package org.FEB17;
+package org.FEB17.mail;
 
 import org.FEB17.utils.ConfigReader;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.ObjectInputFilter;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -99,6 +98,4 @@ public class MailSender {
             logger.severe("Fehler beim senden der Email: " + e.getMessage());
         }
     }
-
-
 }
