@@ -3,10 +3,19 @@ package org.FEB17;
 import org.FEB17.gui.MailGuiApp;
 import org.FEB17.mail.MailSender;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.logging.LogManager;
+
 public class Main {
     // TODO mail darf nicht in Spam-Order
     public static void main(String[] args) {
-        //MailSender.sendMail();
+        try{
+            LogManager.getLogManager().readConfiguration(new FileInputStream("src/main/resources/logging.properties"));
+        }catch (IOException e){
+            System.err.println("could not load logging.properties: " + e.getMessage());
+        }
+
         MailGuiApp.start();
     }
 }

@@ -34,3 +34,23 @@ build/
 ### Mac OS ###
 .DS_Store
 /src/main/resources/config.properties
+
+
+# Build artifacts
+*.class
+*.log
+*.jar
+*.war
+
+# OS generierte Dateien
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Sicherungskopien/Temporäre Dateien
+*.swp
+*.swo
+*~
+
+# Logs
+logs/

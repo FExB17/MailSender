@@ -20,7 +20,7 @@ public class MailGuiApp {
         frame.add(panel);
         frame.setVisible(true);
     }
-
+//TODO createForm muss aufgeteilt werden
     private static JPanel createForm(JFrame frame) {
 
         JPanel panel = new JPanel();
@@ -87,22 +87,25 @@ public class MailGuiApp {
             Supplier<MailData> supplier = () -> {
                 return new MailData(mailTo.getText(), subject.getText(), messageArea.getText());
             };
-
+            if (!FieldValidator.isValidEmail(mailTo.getText())){
+                errorRecipient.setText("Invalid e-mail address format. Please enter a valid email address.");
+                return;
+            }
             MailScheduler.startScheduledMailing(interval, supplier);
-            statusLabel.setText("Continuous reminder started");
+            statusLabel.setText("Continuous reminder started. Mails will be sent every "  + interval +  " minutes.");
 
         });
 
         stopBtn.addActionListener(e -> {
             MailScheduler.stop();
-            statusLabel.setText("Continuous reminder stopped");
+            statusLabel.setText("Reminder stopped");
         });
 
         return panel;
     }
 
     private static JFrame createFrame() {
-        JFrame frame = new JFrame("Mailer");
+        JFrame frame = new JFrame("Reminder");
         frame.setSize(600, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         return frame;

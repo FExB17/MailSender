@@ -51,10 +51,10 @@ public class MailSender {
             // E-Mail senden
             Transport.send(message);
 
-            logger.info("E-Mail erfolgreich gesendet!");
+            logger.info("Mail successfully sent");
 
         } catch (MessagingException e) {
-            logger.severe("Fehler beim senden der Email: " + e.getMessage());
+            logger.severe("Error while sending the mail : " + e.getMessage());
         }
     }
 
@@ -99,7 +99,7 @@ public class MailSender {
 
         } catch (MessagingException e) {
             statusInfo = "Error while sending e-mail : " + e.getMessage();
-            logger.severe(statusInfo + e.getMessage());
+            logger.severe(statusInfo);
         }
         return statusInfo;
     }
