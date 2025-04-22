@@ -102,7 +102,7 @@ public class MailGuiApp {
     }
 
     private static JFrame createFrame() {
-        JFrame frame = new JFrame("Reminder");
+        JFrame frame = new JFrame("Mailer");
         frame.setSize(600, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         return frame;
