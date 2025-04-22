@@ -1,23 +1,27 @@
 package org.FEB17.gui;
 
+import org.FEB17.mail.MailData;
 import org.FEB17.mail.MailSender;
+import org.FEB17.scheduler.MailScheduler;
 import org.FEB17.utils.FieldValidator;
 import org.FEB17.utils.Gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class MailGuiApp {
 
     public static void start() {
-       JFrame frame = createFrame();
+        JFrame frame = createFrame();
         JPanel panel = createForm(frame);
 
         frame.add(panel);
         frame.setVisible(true);
     }
 
-    private static JPanel createForm(JFrame frame){
+    private static JPanel createForm(JFrame frame) {
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -51,17 +55,25 @@ public class MailGuiApp {
         panel.add(errorMessage);
 
 
-        JButton button = new JButton("Send");
+        SpinnerNumberModel model = new SpinnerNumberModel(1,1,1440,1);
+        JSpinner intervallSpinner = new JSpinner(model);
+        intervallSpinner.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        panel.add(new JLabel("Interval (minutes)"));
+        panel.add(intervallSpinner);
 
 
+        JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JButton startBtn = new JButton("Start");
+        JButton stopBtn = new JButton("Stop");
+        btnPanel.add(startBtn);
+        btnPanel.add(stopBtn);
+        panel.add(btnPanel);
+
+        final JLabel statusLabel = new JLabel();
+        panel.add(statusLabel);
 
 
-
-
-        button.addActionListener(e -> {
-            String to = mailTo.getText();
-            String subj = subject.getText();
-            String message = messageArea.getText();
+        startBtn.addActionListener(e -> {
 
             boolean valid = true;
             if (!FieldValidator.validateField(mailTo, errorRecipient)) valid = false;
@@ -71,14 +83,25 @@ public class MailGuiApp {
                 return;
             }
 
-            JOptionPane.showMessageDialog(frame, "Message has been sent");
-            MailSender.sendMail(to, subj, message);
+            long interval = (int) intervallSpinner.getValue();
+            Supplier<MailData> supplier = () -> {
+                return new MailData(mailTo.getText(), subject.getText(), messageArea.getText());
+            };
+
+            MailScheduler.startScheduledMailing(interval, supplier);
+            statusLabel.setText("Continuous reminder started");
+
         });
 
-        panel.add(button);
+        stopBtn.addActionListener(e -> {
+            MailScheduler.stop();
+            statusLabel.setText("Continuous reminder stopped");
+        });
+
         return panel;
     }
-    private static JFrame createFrame (){
+
+    private static JFrame createFrame() {
         JFrame frame = new JFrame("Reminder");
         frame.setSize(600, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

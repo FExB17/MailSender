@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 public class MailSender {
     private static final Logger logger  = Logger.getLogger(MailSender.class.getName());
 
+    // sends mail by reading everything from config.properties
     public static void sendMail(){
         ConfigReader config = new ConfigReader();
 
@@ -57,7 +58,8 @@ public class MailSender {
         }
     }
 
-    public static void sendMail (String toMail, String subject, String body){
+    public static String sendMail (String toMail, String subject, String body){
+        String statusInfo;
         ConfigReader config = new ConfigReader();
 
 
@@ -91,11 +93,14 @@ public class MailSender {
 
             // E-Mail senden
             Transport.send(message);
+            statusInfo = "successfully sent";
+            logger.info(statusInfo);
 
-            logger.info("E-Mail erfolgreich gesendet!");
 
         } catch (MessagingException e) {
-            logger.severe("Fehler beim senden der Email: " + e.getMessage());
+            statusInfo = "Error while sending e-mail : " + e.getMessage();
+            logger.severe(statusInfo + e.getMessage());
         }
+        return statusInfo;
     }
 }
