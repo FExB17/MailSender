@@ -1,14 +1,12 @@
-package org.FEB17.gui;
+package org.FEB17.ui;
 
 import org.FEB17.mail.MailData;
-import org.FEB17.mail.MailSender;
 import org.FEB17.scheduler.MailScheduler;
 import org.FEB17.utils.FieldValidator;
 import org.FEB17.utils.Gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class MailGuiApp {
@@ -108,7 +106,8 @@ public class MailGuiApp {
         JFrame frame = new JFrame("Reminder");
         frame.setSize(600, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
         return frame;
     }
 }
-

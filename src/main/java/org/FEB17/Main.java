@@ -1,7 +1,6 @@
 package org.FEB17;
 
-import org.FEB17.gui.MailGuiApp;
-import org.FEB17.mail.MailSender;
+import org.FEB17.ui.MailGuiApp;
 
 import java.io.FileInputStream;
 import java.io.IOException;

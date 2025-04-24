@@ -1,10 +1,8 @@
 package org.FEB17.scheduler;
 
-import org.FEB17.gui.MailGuiApp;
 import org.FEB17.mail.MailData;
 import org.FEB17.mail.MailSender;
 
-import javax.swing.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;

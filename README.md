@@ -59,7 +59,7 @@ src/main/java/org/FEB17/
 ### Maven (optional):
 ```bash
 mvn compile
-mvn exec:java -Dexec.mainClass="org.FEB17.gui.MailGuiApp"
+mvn exec:java -Dexec.mainClass="org.FEB17.ui.MailGuiApp"
 ```
 
 ---
